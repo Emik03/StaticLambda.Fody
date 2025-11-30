@@ -1,0 +1,26 @@
+<!-- SPDX-License-Identifier: MPL-2.0 -->
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <NoWarn>$(NoWarn);CS0419;CS1574</NoWarn>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <Description>Emits lambdas as static methods when possible.</Description>
+        <RepositoryUrl>https://github.com/Emik03/StaticLambda.Fody</RepositoryUrl>
+        <PackageTags>Cecil Code Fody Functions IL ILWeaving Lambdas Methods Mono Static Weaving</PackageTags>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net9.0</TargetFramework>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+        <DefineConstants>$(DefineConstants);NO_SYSTEM_MEMORY</DefineConstants>
+    </PropertyGroup>
+    <ItemGroup>
+        <None Remove="*.Fody.Playground/**"/>
+        <Compile Remove="*.Fody.Playground/**"/>
+    </ItemGroup>
+    <ItemGroup Condition="'$(Configuration)' == 'Release'">
+        <Compile Remove="$(Morsels)/Compile/Source/References/**/*.cs"/>
+        <Compile Include="$(Morsels)/Compile/Source/References/Emik/Linq/Retainer.cs" Link="Source/Retainer.cs"/>
+        <Compile Include="$(Morsels)/Compile/Source/References/System/Diagnostics/Attributes.cs" Link="Source/Attributes.cs"/>
+    </ItemGroup>
+</Project>

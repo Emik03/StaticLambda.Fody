@@ -1,0 +1,100 @@
+﻿// SPDX-License-Identifier: MPL-2.0
+namespace StaticLambda.Fody;
+
+using CustomAttribute = Mono.Cecil.CustomAttribute;
+using FieldDefinition = Mono.Cecil.FieldDefinition;
+using MethodDefinition = Mono.Cecil.MethodDefinition;
+using ModuleDefinition = Mono.Cecil.ModuleDefinition;
+using OpCodes = Mono.Cecil.Cil.OpCodes;
+using TypeDefinition = Mono.Cecil.TypeDefinition;
+
+/// <summary>This weaver removes unused members within an assembly.</summary>
+[CLSCompliant(false)] // ReSharper disable once ClassNeverInstantiated.Global
+public sealed class ModuleWeaver : BaseModuleWeaver
+{
+    /// <inheritdoc />
+    public override bool ShouldCleanReference => false;
+
+    /// <summary>Executes the weaver on the <see cref="Mono.Cecil.Cil.ModuleDefinition"/>.</summary>
+    /// <param name="module">The module to process.</param>
+    /// <param name="onInfo">The logger at the info level.</param>
+    /// <param name="onDebug">The logger at the debug level.</param>
+    // ReSharper disable once CognitiveComplexity
+    public static void Execute(ModuleDefinition module, Action<string>? onInfo = null, Action<string>? onDebug = null)
+    {
+        const int Expected = 2;
+
+        bool IsSingletonField(FieldDefinition x)
+        {
+            if (!x.IsStatic || x.FieldType.FullName != x.DeclaringType.FullName)
+                return false;
+
+            onDebug?.Invoke($"Removing {x.FullName} to reduce code size.");
+            return true;
+        }
+
+        bool IsStatic(MethodDefinition x)
+        {
+            if (x.IsConstructor)
+                return true;
+
+            onDebug?.Invoke($"Changing {x.FullName} to be a static method.");
+            return x.IsStatic = true;
+        }
+
+        bool IsStaticFieldInitialization(Instruction x)
+        {
+            if (x.OpCode.Code is not Code.Newobj and not Code.Stsfld)
+                return false;
+
+            onDebug?.Invoke($"Removing IL_{x.Operand:x4}'s {x.OpCode.Code} instruction.");
+            return true;
+        }
+
+        bool Suitable(TypeDefinition x) =>
+            x.CustomAttributes.Any(IsCompilerGenerated) &&
+            x.Fields.Remove(x.Fields.FirstOrDefault(IsSingletonField)) &&
+            x.GetStaticConstructor().Body.Instructions.RemoveWhere(IsStaticFieldInitialization) is Expected &&
+            x.Methods.All(IsStatic);
+
+        var types = module.Assembly.Modules.SelectMany(x => x.GetAllTypes()).Where(Suitable).ToImmutableArray();
+
+        Instruction? Target(Instruction il) =>
+            il is { OpCode.Code: Code.Ldsfld, Operand: FieldReference { FieldType.FullName: var fullName } } &&
+            types.Any(x => x.FullName == fullName)
+                ? il
+                : null;
+
+        foreach (var method in types.SelectMany(x => x.DeclaringType.Methods))
+            while (method.Body.Instructions.Select(Target).FirstOrDefault(x => x is not null) is { } instruction)
+                Replace(method, instruction, onDebug);
+
+        if (onInfo is null)
+            return;
+
+        foreach (var type in types)
+            onInfo($"Finished turning {type.FullName}'s methods static!");
+    }
+
+    /// <inheritdoc />
+    public override void Execute()
+    {
+        if (!DefineConstants.Exists(x => x.Contains("NO_STATIC_LAMBDA_FODY")))
+            Execute(ModuleDefinition, WriteInfo, WriteDebug);
+    }
+
+    /// <inheritdoc />
+    public override IEnumerable<string> GetAssembliesForScanning() => [];
+
+    static void Replace(MethodDefinition method, Instruction instruction, Action<string>? onDebug)
+    {
+        method.Body.GetILProcessor().Replace(instruction, Instruction.Create(OpCodes.Ldnull));
+
+        onDebug?.Invoke(
+            $"Replaced {method.FullName} IL_{instruction.Offset:x4}'s {nameof(Code.Ldsfld)} to {nameof(Code.Ldnull)}."
+        );
+    }
+
+    static bool IsCompilerGenerated(CustomAttribute x) =>
+        x.AttributeType.FullName == typeof(CompilerGeneratedAttribute).FullName;
+}

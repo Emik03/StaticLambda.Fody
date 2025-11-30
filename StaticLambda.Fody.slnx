@@ -1,0 +1,4 @@
+﻿<Solution>
+  <Project Path="StaticLambda.Fody.csproj" Type="Classic C#" />
+  <Project Path="StaticLambda.Fody.Playground\StaticLambda.Fody.Playground.csproj" Type="Classic C#" />
+</Solution>
