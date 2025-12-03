@@ -78,7 +78,7 @@ static void Capture(System.Func<int> _) { }
 What gets compiled:
 
 ```csharp
-// The Func<int> target normally is the <>c singleton (which no longer exists)
+// The Func<int> target normally is the <>c singleton (which is now redundant)
 Capture(Program.<>c.<>9__0_0 ?? (Program.<>c.<>9__0_0 = new Func<int>(null, __methodptr(<Main>b__0_0))));
 
 static void Capture(Func<int> _) { }

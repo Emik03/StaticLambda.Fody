@@ -1,4 +1,6 @@
 ﻿// SPDX-License-Identifier: MPL-2.0
+[assembly: CLSCompliant(true)]
+
 namespace StaticLambda.Fody;
 
 using CustomAttribute = Mono.Cecil.CustomAttribute;
@@ -27,12 +29,24 @@ public sealed class ModuleWeaver : BaseModuleWeaver
             if (x.IsConstructor)
                 return true;
 
-            onDebug?.Invoke($"Changing {x.FullName} to be a static method.");
-            return x.IsStatic = true;
+            onDebug?.Invoke($"Changing {x.FullName} to be a public static method.");
+            x.IsPublic = true;
+            x.IsStatic = true;
+            return true;
         }
 
-        bool Suitable(TypeDefinition x) =>
-            x.CustomAttributes.Any(IsCompilerGenerated) && x.Fields.Any(IsSingletonField) && x.Methods.All(TurnStatic);
+        bool Suitable(TypeDefinition x)
+        {
+            if (!x.CustomAttributes.Any(IsCompilerGenerated) ||
+                !x.Fields.Any(IsSingletonField) ||
+                !x.Methods.All(TurnStatic))
+                return false;
+
+            onDebug?.Invoke($"Changing {x.FullName} to be a public type.");
+            x.IsNestedPublic = true;
+            x.IsPublic = true;
+            return true;
+        }
 
         var types = module.Assembly.Modules.SelectMany(x => x.GetAllTypes()).Where(Suitable).ToImmutableArray();
 
@@ -50,7 +64,7 @@ public sealed class ModuleWeaver : BaseModuleWeaver
             return;
 
         foreach (var type in types)
-            onInfo($"Finished turning {type.FullName}'s methods static!");
+            onInfo($"Finished processing {type.FullName}!");
     }
 
     /// <inheritdoc />
