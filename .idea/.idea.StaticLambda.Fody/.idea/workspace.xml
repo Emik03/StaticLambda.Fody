@@ -27,12 +27,12 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/0828fb652f1a48f8e05c94d45ab6c398f472e22caff38fbaf916893b7b1c2/ModuleDefinitionRocks.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/1cb299ccc9224b1b2e7553bfa21d4816fab445883196de338faac8938182f/OpCode.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3cb7648361e2a8f555c9ec379c6dfe3a4fecf3c4b75dc4edcba5d4c32e68b1/Collection.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Emik.Morsels/Compile/Source/References/Emik/Buffers/OnceMemoryManager.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Emik.Morsels/Compile/Source/References/Emik/Linq/Choices.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Emik.Morsels/Compile/Source/References/Emik/Buffers/OnceMemoryManager.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Emik.Morsels/Compile/Source/References/Emik/Linq/Choices.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../Emik.Morsels/Compile/Source/References/Emik/Linq/Retainer.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Emik.Morsels/Compile/Source/References/System/Memory.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Emik.Morsels/Compile/Source/References/System/MemoryExtensions.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Emik.Morsels/Compile/Source/References/System/RandomGetItems.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Emik.Morsels/Compile/Source/References/System/Memory.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Emik.Morsels/Compile/Source/References/System/MemoryExtensions.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Emik.Morsels/Compile/Source/References/System/RandomGetItems.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/ModuleWeaver.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Program.cs" root0="FORCE_HIGHLIGHTING" />
   </component>

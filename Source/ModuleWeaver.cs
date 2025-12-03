@@ -22,18 +22,7 @@ public sealed class ModuleWeaver : BaseModuleWeaver
     // ReSharper disable once CognitiveComplexity
     public static void Execute(ModuleDefinition module, Action<string>? onInfo = null, Action<string>? onDebug = null)
     {
-        const int Expected = 2;
-
-        bool IsSingletonField(FieldDefinition x)
-        {
-            if (!x.IsStatic || x.FieldType.FullName != x.DeclaringType.FullName)
-                return false;
-
-            onDebug?.Invoke($"Removing {x.FullName} to reduce code size.");
-            return true;
-        }
-
-        bool IsStatic(MethodDefinition x)
+        bool TurnStatic(MethodDefinition x)
         {
             if (x.IsConstructor)
                 return true;
@@ -42,20 +31,8 @@ public sealed class ModuleWeaver : BaseModuleWeaver
             return x.IsStatic = true;
         }
 
-        bool IsStaticFieldInitialization(Instruction x)
-        {
-            if (x.OpCode.Code is not Code.Newobj and not Code.Stsfld)
-                return false;
-
-            onDebug?.Invoke($"Removing IL_{x.Operand:x4}'s {x.OpCode.Code} instruction.");
-            return true;
-        }
-
         bool Suitable(TypeDefinition x) =>
-            x.CustomAttributes.Any(IsCompilerGenerated) &&
-            x.Fields.Remove(x.Fields.FirstOrDefault(IsSingletonField)) &&
-            x.GetStaticConstructor().Body.Instructions.RemoveWhere(IsStaticFieldInitialization) is Expected &&
-            x.Methods.All(IsStatic);
+            x.CustomAttributes.Any(IsCompilerGenerated) && x.Fields.Any(IsSingletonField) && x.Methods.All(TurnStatic);
 
         var types = module.Assembly.Modules.SelectMany(x => x.GetAllTypes()).Where(Suitable).ToImmutableArray();
 
@@ -97,4 +74,6 @@ public sealed class ModuleWeaver : BaseModuleWeaver
 
     static bool IsCompilerGenerated(CustomAttribute x) =>
         x.AttributeType.FullName == typeof(CompilerGeneratedAttribute).FullName;
+
+    static bool IsSingletonField(FieldDefinition x) => x.IsStatic && x.FieldType.FullName == x.DeclaringType.FullName;
 }
