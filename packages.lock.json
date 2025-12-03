@@ -92,9 +92,9 @@
       },
       "FodyHelpers": {
         "type": "Direct",
-        "requested": "[6.9.1, )",
-        "resolved": "6.9.1",
-        "contentHash": "PyvEDbC1kDiqQgu/tg82NRAw18sWBjTFXJCl5bTb8q8Ko5IRoZFzsSduZGV/gM9RLgfOSXW/LkNEoApfu/fmGg=="
+        "requested": "[6.9.3, )",
+        "resolved": "6.9.3",
+        "contentHash": "c75VQraygFPKpxtg9WE7XVFZwCPS2K88N5K9BIxGqyj/woHVrsubFAl9uWv/6e8oBY35lHgbdPLgrCLXknD16A=="
       },
       "GlobalUsingsAnalyzer": {
         "type": "Direct",

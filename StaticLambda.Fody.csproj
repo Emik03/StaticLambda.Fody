@@ -1,7 +1,7 @@
 <!-- SPDX-License-Identifier: MPL-2.0 -->
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <FileVersion>1.0.1</FileVersion>
+        <FileVersion>1.0.2</FileVersion>
         <NoWarn>$(NoWarn);CS0419;CS1574</NoWarn>
         <TargetFramework>netstandard2.0</TargetFramework>
         <Description>Emits lambdas as static methods when possible.</Description>
