@@ -1,6 +1,7 @@
 ﻿// SPDX-License-Identifier: MPL-2.0
+#if RELEASE
 [assembly: CLSCompliant(true)]
-
+#endif
 namespace StaticLambda.Fody;
 
 using CustomAttribute = Mono.Cecil.CustomAttribute;
@@ -17,22 +18,29 @@ public sealed class ModuleWeaver : BaseModuleWeaver
     /// <inheritdoc />
     public override bool ShouldCleanReference => false;
 
+    bool JustPublic => bool.TryParse(Config.Attribute(nameof(JustPublic))?.Value, out var b) && b;
+
     /// <summary>Executes the weaver on the <see cref="Mono.Cecil.Cil.ModuleDefinition"/>.</summary>
     /// <param name="module">The module to process.</param>
+    /// <param name="emitStatic">Turns the </param>
     /// <param name="onInfo">The logger at the info level.</param>
     /// <param name="onDebug">The logger at the debug level.</param>
     // ReSharper disable once CognitiveComplexity
-    public static void Execute(ModuleDefinition module, Action<string>? onInfo = null, Action<string>? onDebug = null)
+    public static void Execute(
+        ModuleDefinition module,
+        bool emitStatic = true,
+        Action<string>? onInfo = null,
+        Action<string>? onDebug = null
+    )
     {
         bool TurnStatic(MethodDefinition x)
         {
             if (x.IsConstructor)
                 return true;
 
-            onDebug?.Invoke($"Changing {x.FullName} to be a public static method.");
-            x.IsPublic = true;
-            x.IsStatic = true;
-            return true;
+            onDebug?.Invoke($"Changing {x.FullName} to be a public method.");
+            _ = emitStatic && (x.IsStatic = true);
+            return x.IsPublic = true;
         }
 
         bool Suitable(TypeDefinition x)
@@ -43,9 +51,7 @@ public sealed class ModuleWeaver : BaseModuleWeaver
                 return false;
 
             onDebug?.Invoke($"Changing {x.FullName} to be a public type.");
-            x.IsNestedPublic = true;
-            x.IsPublic = true;
-            return true;
+            return x.IsNestedPublic = true;
         }
 
         var types = module.Assembly.Modules.SelectMany(x => x.GetAllTypes()).Where(Suitable).ToImmutableArray();
@@ -56,9 +62,10 @@ public sealed class ModuleWeaver : BaseModuleWeaver
                 ? il
                 : null;
 
-        foreach (var method in types.SelectMany(x => x.DeclaringType.Methods))
-            while (method.Body.Instructions.Select(Target).FirstOrDefault(x => x is not null) is { } instruction)
-                Replace(method, instruction, onDebug);
+        if (emitStatic)
+            foreach (var method in types.SelectMany(x => x.DeclaringType.Methods))
+                while (method.Body.Instructions.Select(Target).FirstOrDefault(x => x is not null) is { } instruction)
+                    Replace(method, instruction, onDebug);
 
         if (onInfo is null)
             return;
@@ -70,8 +77,8 @@ public sealed class ModuleWeaver : BaseModuleWeaver
     /// <inheritdoc />
     public override void Execute()
     {
-        if (!DefineConstants.Exists(x => x.Contains("NO_STATIC_LAMBDA_FODY")))
-            Execute(ModuleDefinition, WriteInfo, WriteDebug);
+        if (!Defined("NO_STATIC_LAMBDA_FODY"))
+            Execute(ModuleDefinition, !JustPublic, WriteInfo, WriteDebug);
     }
 
     /// <inheritdoc />
@@ -90,4 +97,6 @@ public sealed class ModuleWeaver : BaseModuleWeaver
         x.AttributeType.FullName == typeof(CompilerGeneratedAttribute).FullName;
 
     static bool IsSingletonField(FieldDefinition x) => x.IsStatic && x.FieldType.FullName == x.DeclaringType.FullName;
+
+    bool Defined(string target) => DefineConstants.Exists(x => x.Contains(target));
 }

@@ -24,17 +24,23 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/ILViewer/52e9905f4efe49d3a4537adbb837fe569a000/be/6977244c/02000019pdb8.il" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/ILViewer/91fee21be11f43d48e2137ad98ee940b9a200/b4/19700f23/02000019pdb8.il" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/ILViewer/e13a14f8a26043f78b2af21497a7c44d9a200/5f/a1db44c8/02000019pdb8.il" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/bbf7200d1aed4501a1f054b6130e856958400/84/b606f19d/Mixin.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/0828fb652f1a48f8e05c94d45ab6c398f472e22caff38fbaf916893b7b1c2/ModuleDefinitionRocks.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/14d26ee58b202c1c4a30dbbb8e4e4b6332f3af25aeed51837d4e1ab3a1188a8/TypeReference.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/1cb299ccc9224b1b2e7553bfa21d4816fab445883196de338faac8938182f/OpCode.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/38e8304bdb96491215756c7a4be57248ea0fafa6edc97c024c2423fd74f29/MethodAttributes.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3cb7648361e2a8f555c9ec379c6dfe3a4fecf3c4b75dc4edcba5d4c32e68b1/Collection.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/dff3d6867bc292334f544fd58ebff65028391b109f6c9ca95c2a1c229debc71/TypeDefinition.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Emik.Morsels/Compile/Source/References/Emik/Buffers/OnceMemoryManager.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Emik.Morsels/Compile/Source/References/Emik/Linq/Choices.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Emik.Morsels/Compile/Source/References/Emik/Linq/Retainer.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/86afefbc5f7c905553c4b610b7f0b96948f1ba99953cd0312bc0587665dcf190/TypeAttributes.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/a2e0ee37c99a389a887aa0e4c6537012972cbfea2f136ae4312315a92c1d6f40/MethodDefinition.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/cb52668c40be978b69136fcfd052434d663c9c7f12f175f718e7e8131ae8bf/IMemberDefinition.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/dff3d6867bc292334f544fd58ebff65028391b109f6c9ca95c2a1c229debc71/TypeDefinition.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Emik.Morsels/Compile/Source/References/Emik/Buffers/OnceMemoryManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Emik.Morsels/Compile/Source/References/Emik/Linq/Choices.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Emik.Morsels/Compile/Source/References/Emik/Linq/Retainer.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../Emik.Morsels/Compile/Source/References/System/Diagnostics/Attributes.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Emik.Morsels/Compile/Source/References/System/Memory.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Emik.Morsels/Compile/Source/References/System/MemoryExtensions.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Emik.Morsels/Compile/Source/References/System/RandomGetItems.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Emik.Morsels/Compile/Source/References/System/Memory.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Emik.Morsels/Compile/Source/References/System/MemoryExtensions.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Emik.Morsels/Compile/Source/References/System/RandomGetItems.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/ModuleWeaver.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Program.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file:///media/f/RiderProjects/StaticLambda.Fody/Source/ModuleWeaver.cs" root0="FORCE_HIGHLIGHTING" />
@@ -51,16 +57,16 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    ".NET Project.StaticLambda.Fody.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "last_opened_file_path": "/home/emik/RiderProjects/Remote",
-    "settings.editor.selected.configurable": "preferences.lookFeel"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;.NET Project.StaticLambda.Fody.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/emik/RiderProjects/Remote&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="StaticLambda.Fody" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="" />

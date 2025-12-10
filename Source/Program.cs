@@ -7,7 +7,7 @@ args
    .Where(File.Exists)
    .Select(Mono.Cecil.AssemblyDefinition.ReadAssembly)
    .Filter()
-   .Lazily(x => ModuleWeaver.Execute(x.MainModule, Console.WriteLine, Console.Error.WriteLine))
+   .Lazily(x => ModuleWeaver.Execute(x.MainModule, onInfo: Console.WriteLine, onDebug: Console.Error.WriteLine))
    .Lazily(x => x.Write($"{nameof(StaticLambda)}.{x.MainModule?.Name}"))
    .Enumerate();
 #endif
