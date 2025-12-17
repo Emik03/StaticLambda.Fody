@@ -43,6 +43,7 @@
     <setting file="file://$PROJECT_DIR$/../Emik.Morsels/Compile/Source/References/System/RandomGetItems.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/ModuleWeaver.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/Program.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/StaticLambda.Fody.Playground/Source/UsedImplicitlyAttribute.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file:///media/f/RiderProjects/StaticLambda.Fody/Source/ModuleWeaver.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProblemsViewState">
@@ -64,7 +65,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;/home/emik/RiderProjects/Remote&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
+    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.language&quot;
   }
 }</component>
   <component name="RunManager">

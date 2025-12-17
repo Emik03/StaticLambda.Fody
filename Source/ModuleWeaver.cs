@@ -45,10 +45,18 @@ public sealed class ModuleWeaver : BaseModuleWeaver
 
         bool Suitable(TypeDefinition x)
         {
-            if (!x.CustomAttributes.Any(IsCompilerGenerated) ||
-                !x.Fields.Any(IsSingletonField) ||
-                !x.Methods.All(TurnStatic))
+            if (!x.CustomAttributes.Any(IsCompilerGenerated))
                 return false;
+
+            if (!x.Fields.Any(IsSingletonField) || !x.Methods.All(TurnStatic))
+            {
+                if (x.Methods.Count > 0)
+                    return false;
+
+                onDebug?.Invoke($"Changing {x.FullName} to be a public type, despite not containing any methods.");
+                x.IsNestedPublic = true;
+                return false;
+            }
 
             onDebug?.Invoke($"Changing {x.FullName} to be a public type.");
             return x.IsNestedPublic = true;
