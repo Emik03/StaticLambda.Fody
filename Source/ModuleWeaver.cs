@@ -1,7 +1,4 @@
 ﻿// SPDX-License-Identifier: MPL-2.0
-#if RELEASE
-[assembly: CLSCompliant(true)]
-#endif
 namespace StaticLambda.Fody;
 
 using CustomAttribute = Mono.Cecil.CustomAttribute;
@@ -54,7 +51,7 @@ public sealed class ModuleWeaver : BaseModuleWeaver
             return x.IsNestedPublic = true;
         }
 
-        var types = module.Assembly.Modules.SelectMany(x => x.GetAllTypes()).Where(Suitable).ToImmutableArray();
+        var types = module.Assembly.Modules.SelectMany(x => x.GetAllTypes()).Where(Suitable).ReadOnly();
 
         Instruction? Target(Instruction il) =>
             il is { OpCode.Code: Code.Ldsfld, Operand: FieldReference { FieldType.FullName: var fullName } } &&
