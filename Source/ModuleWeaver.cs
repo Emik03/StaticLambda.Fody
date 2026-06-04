@@ -1,9 +1,14 @@
 ﻿// SPDX-License-Identifier: MPL-2.0
-namespace StaticLambda.Fody; // ReSharper disable RedundantNameQualifier
+#if RELEASE
+[assembly: CLSCompliant(true)]
+#endif
+namespace StaticLambda.Fody;
+
 using CustomAttribute = Mono.Cecil.CustomAttribute;
 using FieldDefinition = Mono.Cecil.FieldDefinition;
 using MethodDefinition = Mono.Cecil.MethodDefinition;
 using ModuleDefinition = Mono.Cecil.ModuleDefinition;
+using OpCodes = Mono.Cecil.Cil.OpCodes;
 using TypeDefinition = Mono.Cecil.TypeDefinition;
 
 /// <summary>This weaver removes unused members within an assembly.</summary>
@@ -40,24 +45,16 @@ public sealed class ModuleWeaver : BaseModuleWeaver
 
         bool Suitable(TypeDefinition x)
         {
-            if (!x.CustomAttributes.Any(IsCompilerGenerated))
+            if (!x.CustomAttributes.Any(IsCompilerGenerated) ||
+                !x.Fields.Any(IsSingletonField) ||
+                !x.Methods.All(TurnStatic))
                 return false;
-
-            if (!x.Fields.Any(IsSingletonField) || !x.Methods.All(TurnStatic))
-            {
-                if (x.Methods.Count > 0)
-                    return false;
-
-                onDebug?.Invoke($"Changing {x.FullName} to be a public type, despite not containing any methods.");
-                x.IsNestedPublic = true;
-                return false;
-            }
 
             onDebug?.Invoke($"Changing {x.FullName} to be a public type.");
             return x.IsNestedPublic = true;
         }
 
-        var types = module.Assembly.Modules.SelectMany(x => x.GetAllTypes()).Where(Suitable).ToIList();
+        var types = module.Assembly.Modules.SelectMany(x => x.GetAllTypes()).Where(Suitable).ToImmutableArray();
 
         Instruction? Target(Instruction il) =>
             il is { OpCode.Code: Code.Ldsfld, Operand: FieldReference { FieldType.FullName: var fullName } } &&
@@ -89,7 +86,7 @@ public sealed class ModuleWeaver : BaseModuleWeaver
 
     static void Replace(MethodDefinition method, Instruction instruction, Action<string>? onDebug)
     {
-        method.Body.GetILProcessor().Replace(instruction, Instruction.Create(Mono.Cecil.Cil.OpCodes.Ldnull));
+        method.Body.GetILProcessor().Replace(instruction, Instruction.Create(OpCodes.Ldnull));
 
         onDebug?.Invoke(
             $"Replaced {method.FullName} IL_{instruction.Offset:x4}'s {nameof(Code.Ldsfld)} to {nameof(Code.Ldnull)}."

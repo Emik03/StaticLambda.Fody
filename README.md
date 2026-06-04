@@ -38,8 +38,6 @@ However, this may be an unsatisfactory solution as it creates far more verbose c
 
 Installing this weaver will turn every applicable lambda into a `static` method. You do not need to specify `static` for this to take effect. Runtime performance is very likely barely worse with this weaver, but chances are the reflection that facillitates the need for `static` methods already makes this difference negligible.
 
-If you only need your lambdas to be public, you can declare `<StaticLambda JustPublic="true"/>`.
-
 ## Installation
 
 - Install the NuGet packages [`Fody`](https://www.nuget.org/packages/Fody) and [`StaticLambda.Fody`](https://www.nuget.org/packages/StaticLambda.Fody). Installing `Fody` explicitly is needed to enable weaving.
