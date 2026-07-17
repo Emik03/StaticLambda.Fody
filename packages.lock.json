@@ -1,7 +1,7 @@
 {
   "version": 1,
   "dependencies": {
-    "net9.0": {
+    ".NETStandard,Version=v2.0": {
       "Absence.Fody": {
         "type": "Direct",
         "requested": "[2.0.11, )",
@@ -13,12 +13,6 @@
         "requested": "[0.2.14.2, )",
         "resolved": "0.2.14.2",
         "contentHash": "FCQXj050exC2BDv7/yq/ECQReT62/nU19ZX08eLGO1RCEg31Uf760nz5mQBb9nSM4mqkVnkVHA7XtBEZEUIzFA=="
-      },
-      "CommunityToolkit.HighPerformance": {
-        "type": "Direct",
-        "requested": "[8.4.2, )",
-        "resolved": "8.4.2",
-        "contentHash": "2hmtrrU18x6NL3mbuAqwy0KpnoEEJOuK6sH5RKQfD/jHijn2pqvqBUC7WGy9dgNBL9BDA7eOC0kirsNPMp2f4Q=="
       },
       "Divorce.Fody": {
         "type": "Direct",
@@ -102,6 +96,15 @@
         "resolved": "5.6.0",
         "contentHash": "30ffAcvc+M4xXFN06dg2bKyH5eXgJQmyuB5H5cpC47559rQV5x7vZRyyC/YakNLQtBG3IdW/ZAyLCMeDBGDxXg=="
       },
+      "NETStandard.Library": {
+        "type": "Direct",
+        "requested": "[2.0.3, )",
+        "resolved": "2.0.3",
+        "contentHash": "st47PosZSHrjECdjeIzZQbzivYBJFv6P2nv4cj2ypdI204DO+vZ7l5raGMiX4eXMJ53RfOIg+/s4DHVZ54Nu2A==",
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "1.1.0"
+        }
+      },
       "NullGuard.Fody": {
         "type": "Direct",
         "requested": "[3.1.1, )",
@@ -122,6 +125,11 @@
         "requested": "[5.6.0, )",
         "resolved": "5.6.0",
         "contentHash": "tDYK+kID75I18NAQhK4U+FolrlpeH4eiUg8d4H5GRbc3L5GMG0ltB7ioANCtuO8V4L7DL4U2bsG1B+zgbsXd/A=="
+      },
+      "Microsoft.NETCore.Platforms": {
+        "type": "Transitive",
+        "resolved": "1.1.0",
+        "contentHash": "kz0PEW2lhqygehI/d6XsPCQzD7ff7gUJaVGPVETX611eadGsA3A877GdSlU0LRVMCTH/+P3o2iDTak+S08V2+A=="
       }
     }
   }
