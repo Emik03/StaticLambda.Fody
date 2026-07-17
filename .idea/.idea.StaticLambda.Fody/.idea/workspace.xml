@@ -38,6 +38,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     ".NET Project.StaticLambda.Fody.executor": "Run",
+    "CidrDebugProfileConversion": "true",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",

@@ -51,7 +51,7 @@ public sealed class ModuleWeaver : BaseModuleWeaver
             return x.IsNestedPublic = true;
         }
 
-        var types = module.Assembly.Modules.SelectMany(x => x.GetAllTypes()).Where(Suitable).ReadOnly();
+        var types = module.Assembly.Modules.SelectMany(x => x.GetAllTypes()).Where(Suitable).ToIList();
 
         Instruction? Target(Instruction il) =>
             il is { OpCode.Code: Code.Ldsfld, Operand: FieldReference { FieldType.FullName: var fullName } } &&
